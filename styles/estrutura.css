@@ -1,0 +1,315 @@
+* {
+    list-style: none;
+    font-size: 11px;
+    font-family: tahoma, verdana, arial, "times new roman", "courier new";
+    text-decoration: none;
+}
+
+table {
+    border: 0px;
+}
+
+table {
+    border: 0px solid #000;
+    width: 100%;
+    margin: 0px auto;
+}
+
+.tb_show td {
+    border: 1px solid #000;
+}
+
+table th {
+    border: 1px solid #000;
+}
+
+table tr:hover {
+    background-color: #fbc228;
+}
+
+table tr td:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+table .titulo {
+    text-align: right;
+    font-weight: bold;
+    font-style: italic;
+}
+
+h2{
+    text-align: center;
+    font-weight: bold;
+    font-family: arial, verdana, tahoma, roman, 'times new roman', times, serif;
+    font-size: 20px;
+}
+
+img {
+    border: 0px;
+}
+
+#menu ul li ul {
+    display: none;
+    position: absolute;
+}
+
+#menu ul li:hover ul {
+    display: block;
+    border: 1px solid #fff;
+    width: 100px;
+    position: absolute;
+    margin-left: 50px;
+}
+
+b {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+input, select, textarea {
+    background-color: #333;
+    color: #fbc228;
+}
+/* Estrutura Formularios */
+
+/* Padrão para os formularios */
+fieldset legend {
+    border: 3px solid #fbc228;
+    background-color: #fbc228;
+    font-size: 13px;
+}
+
+/* form fieldset */
+form .btnForm {
+    text-align: center;
+    background-color: #fbc228;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+form .btnForm input {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Padrão para os formularios */
+
+/* Fim Estrutura Formularios */
+
+#topo {
+    width: 800px;
+    height: 360px;
+    border: 5px double #fbc228;
+    margin: 0px auto;
+    background-image: url('../images/topo.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+#status #formLogarSistema {
+	text-align: right;
+}
+
+#corpo {
+    width: 800px;
+    border: 0px solid #000;
+    margin: 0px auto;
+}
+
+#corpo #menu {
+    width: 150px;
+    float: left;
+    margin-left: 30px;
+}
+
+#corpo #menu h2 {
+    text-decoration: line-through;
+    text-align: center;
+    font-weight: bold;
+    font-family: roman, 'times new roman', times, serif;
+    font-size: 15px;
+}
+
+
+#corpo #menu ul {
+    background-color: #333;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px
+}
+
+#corpo #menu li {
+    border-left: 3px solid #CCC;
+    margin-bottom: 10px;
+}
+
+#corpo #menu li a {
+    padding-left: 5px;
+    color: #CCC;
+    font-family: Zapf-Chancery, cursive, fantasy;
+    font-size: 11px;
+}
+
+#corpo #centro {
+    width: 550px;
+    border: 1px solid #fbc228;
+    float: right;
+    margin-right: 40px;
+}
+
+#comunidades {
+    width: 800px;
+    border: 1px solid #fbc228;
+    margin: 0px auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: Zapf-Chancery, cursive, fantasy;
+    text-align: center;
+}
+
+#direitos {
+    width: 800px;
+    height: 50px;
+    border: 3px solid #fbc228;
+    margin: 0px auto;
+    margin-top: 10px;
+    color: #333;
+    background-color: #fbc228;
+    background-image: url('../images/arcbishop.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    text-align: center;
+    padding-top: 15px;
+}
+
+#loading {
+    text-align: center;
+    display: none;
+}
+
+#formCadastroCliente {
+    width: 500px;
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+#formCadastroDoacao {
+    width: 500px;
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+#formAlteraLogin {
+    width: 400px;
+    margin: 0px auto;
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.mensagem {
+    display: none;
+    width: 800px;
+    margin: 0px auto;
+}
+
+/* Mensagens de alerta */
+.complete {
+    display: block;
+    width: 100%;
+    background-color: #228B22;
+    color: #fff;
+    margin: 0px auto;
+    border: 1px dotted #fff;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.alert {
+    display: block;
+    width: 100%;
+    background-color: #fdfbb7;
+    color: #000;
+    margin: 0px auto;
+    border: 1px dotted #fff714;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.error {
+    display: block;
+    width: 100%;
+    background-color: #F00;
+    color: #fff;
+    margin: 0px auto;
+    border: 1px dotted #fff;
+    text-align: center;
+    margin-bottom: 10px;
+}
+/* Fim Mensagens de alerta */
+
+/* Nome do usuario depois de logado */
+.usuario {
+    display: block;
+    font-size: 11px;
+    background-color: #333;
+    border: 1px dotted #CCC;
+    color: #CCC;
+    width: 70%;
+    text-align: center;
+    margin: 0px auto;
+    margin-top: 10px;
+}
+
+.usuario b {
+    text-decoration: none;
+    color: #fbc228;
+}
+/* Fim Nome do usuario depois de logado */
+
+
+.bghome {
+    background-image: url('../images/bghome.png');
+    background-repeat: repeat-x;
+    background-attachment: fixed;
+}
+
+.apagar {
+    clear: both;
+}
+
+.formLoginSistema {
+    width: 800px;
+    margin: 0px auto;
+    border: 3px solid #fbc228;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #fbc228;
+    text-align: center;
+}
+
+.status {
+    width: 800px;
+    margin: 0px auto;
+    border: 3px solid #fbc228;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #fbc228;
+}
+
+.tb_show {
+    text-align: center;
+}
+
+.tb_show .linha {
+    border-top: 3px double #000;
+}
+
+.tb_show .input {
+    text-align: left;
+}
+
+.doacao_codigo {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}

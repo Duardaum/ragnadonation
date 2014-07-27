@@ -1,0 +1,95 @@
+prontera.gat,150,150,6	script	[RAGDON ATIVADOR]	952,{
+
+//ConfiguraÃ§Ã£o do NPC
+set .@npcName$, "^0000FF [RAGDON ATIVADOR] ^000000";
+set .@site$, "www.ragnadonation.com";
+set .@lvlVip, 1; //Level do VIP do seu servidor
+set .@RESULT01, 0; //Resultado da query conta - NAO MECHA
+set .@RESULT02, 0; //Resultado da query conta - NAO MECHA
+set .@codAtivacao$, ""; //Código de ativacao - NAO MECHA
+//Fim ConfiguraÃ§Ã£o do NPC
+
+mes .@npcName$;
+mes "Olá ^FF0000 "+strcharinfo(0)+", ^000000";
+mes "Gostaria de ativar algum código hoje??";
+menu "Sim, Código V.I.P.",COD_VIP,"Sim, Código Donante/ROP's",COD_DON,"Como adquirir VIP/Donante??",WHO,"Ver Meus ROP's",VER_ROPS,"Não Obrigado!!",NAO;
+
+COD_VIP:
+next;
+mes .@npcName$;
+mes "Diga-me seu código para mim verificar se ele consta em nossos registros e liberar seus dias VIP:";
+input .@codAtivacao$;
+query_sql "SELECT codragdon FROM ragdon WHERE account_id = '"+getcharid(3)+"' AND cod_ativacao = '"+.@codAtivacao$+"' AND tipo_doacao = '1' AND status = '1' LIMIT 1",.@RESULT01;
+if(.@RESULT01 == 0) goto NAOREGISTRADO;
+
+query_sql "SELECT `codragdon_vip` FROM `ragdon_vip` WHERE `account_id` = '"+getcharid(3)+"' LIMIT 1",.@RESULT02;
+if(.@RESULT02 == 0){
+	query_sql "INSERT INTO `ragdon_vip` VALUES (default, '"+getcharid(3)+"', (SELECT valor_abono FROM ragdon WHERE account_id = '"+getcharid(3)+"' AND cod_ativacao = '"+.@codAtivacao$+"' AND status = '1' LIMIT 1), CURRENT_DATE());";
+}else{
+	query_sql "UPDATE ragdon_vip SET diasvip = diasvip + (SELECT valor_abono FROM ragdon WHERE account_id = '"+getcharid(3)+"' AND cod_ativacao = '"+.@codAtivacao$+"' AND status = '1' LIMIT 1), dia_modificacao = CURRENT_DATE() WHERE account_id = '"+getcharid(3)+"' LIMIT 1";
+}
+query_sql "UPDATE ragdon SET status = '2' WHERE account_id = '"+getcharid(3)+"' AND cod_ativacao = '"+.@codAtivacao$+"' LIMIT 1";
+query_sql "UPDATE login SET level = '"+.@lvlVip+"' WHERE account_id = '"+getcharid(3)+"' LIMIT 1";
+next;
+mes .@npcName$;
+mes "Seus Dias VIP foram ativados com sucesso!!";
+next;
+mes .@npcName$;
+mes "Relogue para ativar seus dias VIP!!";
+mes "Tenha um bom dia!!";
+close;
+
+COD_DON:
+mes .@npcName$;
+mes "Digite o Código de Ativação do seu Donation/ROP's";
+input .@codAtivacao$;
+query_sql "SELECT codragdon FROM ragdon WHERE account_id = '"+getcharid(3)+"' AND cod_ativacao = '"+.@codAtivacao$+"' AND tipo_doacao = '2' AND status = '1' LIMIT 1",.@RESULT01;
+if(.@RESULT01 == 0) goto NAOREGISTRADO;
+
+query_sql "SELECT account_id FROM global_reg_value WHERE str = '#CASHPOINTS' AND account_id = '"+getcharid(3)+"' LIMIT 1",.@RESULT02;
+if(.@RESULT02 == 0){
+	query_sql "INSERT INTO `global_reg_value` VALUES ('"+getcharid(0)+"', '#CASHPOINTS', (SELECT `valor_abono` FROM ragdon WHERE cod_ativacao = '"+.@codAtivacao$+"' AND status = '1' LIMIT 1), '2', '"+getcharid(3)+"')";
+}else{
+	query_sql "UPDATE `global_reg_value` SET `value` = `value` +(SELECT `valor_abono` FROM ragdon WHERE cod_ativacao = '"+.@codAtivacao$+"' AND status = '1' LIMIT 1) WHERE `account_id` = '"+getcharid(3)+"' LIMIT 1";
+}
+query_sql "UPDATE ragdon SET status = '2' WHERE cod_ativacao = '"+.@codAtivacao$+"' LIMIT 1";
+next;
+mes .@npcName$;
+mes "Cash Adicionado com sucesso!!";
+mes "Reloque para ativar seus ROP's!!";
+next;
+mes "Obrigado por ajudar o servidor!!";
+close;
+
+VER_ROPS:
+mes .@npcName$;
+mes "Você tem "+#CASHPOINTS+" ROP's";
+next;
+mes "Volte sempre que precisar!!";
+close;
+
+WHO:
+mes .@npcName$;
+mes "Visite nosso site: ^228B22 "+.@site$+" ^000000 ";
+mes "E fique por dentro de como se tornar!!";
+close;
+
+NAO:
+mes .@npcName$;
+mes "Ok!. Quando quiser utilizar meus serviços estarei aqui!!";
+mes "Tenha um Bom dia!!";
+close;
+
+NAOREGISTRADO:
+next;
+mes .@npcName$;
+mes "^FF0000 Não existe nenhum VIP liberado com esse código!!";
+next;
+mes .@npcName$;
+mes "^FF0000 Verifique se o código liberado pelo sistema realmente é esse, e se foi aprovado pela STAFF do servidor!!";
+next;
+mes .@npcName$;
+mes "^0000FF Tenha um bom dia =D !!";
+close;
+
+}

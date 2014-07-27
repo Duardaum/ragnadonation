@@ -1,0 +1,14 @@
+<h2>Menu</h2>
+<ul>
+	<li><a href="cadastro">Cadastro</a></li>
+	<li><a href="doar">Doar</a></li>
+	<li><a href="alldoacao">Ver Doações</a>
+		<ul>
+			<li><a href="vip">V.I.P.</a></li>
+			<li><a href="donante">Donante</a></li>
+		</ul>
+	</li>
+	<li><a href="statusdoacao">Status Doação</a></li>
+	<li><a href="usuario">Alterar usuário</a></li>
+	<li><a href="sobre">Sobre</a></li>
+</ul>

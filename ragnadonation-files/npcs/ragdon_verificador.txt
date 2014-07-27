@@ -1,0 +1,35 @@
+-	script	RAGNADON_VERIFICADOR	-1,{
+
+OnPCLoginEvent:
+//Configuracao do NPC
+set .@npcName$, "[RAGDON VERIFICADOR VIP]"; // Nome do npc
+set .@nmSite$, "www.ragnadonation.com"; //Nome do site do seu servidor
+set .@nmServer$, "Seu ServerRO"; //Nome do seu servidor
+set .@RESULT01, 0;//Variavel utilizada para capturar os resultados - NAO MECHA
+set .@RESULT02, 0;//Variavel utilizada para capturar os resultados - NAO MECHA
+set .@RESULT03, 0;//Variavel utilizada para capturar os resultados - NAO MECHA
+//Fim Configuracao do NPC
+
+query_sql "SELECT diasvip FROM ragdon_vip WHERE account_id = '"+getcharid(3)+"' AND diasvip > '0' LIMIT 1",.@RESULT01; //Verificando se o cara tem dias vip registrado
+if(.@RESULT01 != 0){//Caso tenha..
+    query_sql "SELECT codragdon_vip FROM ragdon_vip WHERE dia_modificacao = CURRENT_DATE() LIMIT 1",.@RESULT02; //Verificando se o dia de hoje j� foi descontado
+	if(.@RESULT02 == 0){//Caso nao discontado..
+		query_sql "UPDATE ragdon_vip SET diasvip = diasvip - '1' WHERE account_id = '"+getcharid(3)+"' LIMIT 1";
+	}
+}else{
+	query_sql "UPDATE login SET level = '0' WHERE account_id = (SELECT account_id FROM ragdon_vip WHERE diasvip = '0' AND account_id = '"+getcharid(3)+"' LIMIT 1) LIMIT 1";
+}
+query_sql "SELECT diasvip FROM ragdon_vip WHERE account_id = '"+getcharid(3)+"' LIMIT 1",.@RESULT03;//Verificando se o cara tem dias vip registrados
+dispbottom .@npcName$;
+dispbottom "Olá "+strcharinfo(0)+",";
+if(.@RESULT03 > 0){
+    dispbottom "Voc� tem "+.@RESULT03+" dias vips restantes!!";
+    dispbottom "Ao final dos seus dias vip, recarregue-os";
+    dispbottom "e aproveite as vantagens e bonifica��es que s� vip tem!!";
+}else{
+    dispbottom "Obtenha agora mesmo dias VIP ou fa�a-nos uma doa��o.";
+    dispbottom "Acesse: "+.@nmSite$+", e fique por dentro de como fazer.";
+}
+end;
+
+}

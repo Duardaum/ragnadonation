@@ -1,0 +1,257 @@
+function AdicionarDon(form){
+	
+	if(!isNumber(form.numDoacao)){
+		alert('Digite o número da doação!!'); form.numDoacao.focus(); return false;	
+	}else if(form.loginct.value == ''){
+		alert('OBS.: Digite corretamente o nickname do player pois não nos responsabilizamos por erros de digitação. Digite o nome do nickname do player a receber a doação!!'); form.loginct.focus(); return false;
+	}else if(!isNumber(form.ropsct)){
+		alert('Digite a quantidade de ROP\'s que o player vai receber!!'); form.ropsct.focus(); return false;
+	}else{
+	
+	}
+}
+
+function AdicionarVip(form){
+	
+	if(!isNumber(form.numDoacao)){
+		alert('Digite apenas número no campo!!'); form.numDoacao.focus(); return false;
+	}else if(form.loginct.value == ''){
+		alert('Digite o Login da conta que receberá o V.I.P.'); form.loginct.focus(); return false;	
+	}else if(form.cboTipo.value == ''){
+		alert('Selecione o Tipo do V.I.P.'); form.cboTipo.focus(); return false;
+	}else if(form.cboDias.value == ''){
+		alert('Selecione a quantidade de dias a serem adicionadas!'); form.cboDias.focus(); return false;
+	}else{
+	
+	login = form.loginct.value;
+	dias  = form.cboDias.value;
+	tipo  = form.cboTipo.value;
+	cod   = form.numDoacao.value;
+	
+		$.ajax({
+			method: "get",
+			url: "db/addvip.php",
+			data: "login="+login+"&dias="+dias+"&codigo="+cod+"&tipo="+tipo,
+			beforeSend: EsconderDiv,
+			complete: MostrarDiv,
+			success: function (html){
+							$("#mensagem").html(html).toggle("show");
+						}
+			});
+	
+	return false;
+	}
+}
+
+function ConfirmarDoacao(doacao){
+	$.ajax({
+			method: "get",
+			url: "db/verificar.php",
+			data: "codigo="+doacao,
+			success: function (html){
+							$("#centro").html(html);
+						}
+			});
+			
+			return false;
+}
+
+function ValidaFormCliente(form){
+	
+	if(form.nome.value == ''){
+		alert('Digite o seu nome Completo para o cadastro!!'); form.nome.focus(); return false;
+	}else if(form.uf.value == ''){
+		alert('Selecione o Estado!!'); form.uf.focus(); return false;
+	}else if(form.cidade.value == ''){
+		alert('Selecione o nome da cidade!!'); form.cidade.focus(); return false;
+	}else if(!isMail(form.email)){
+		alert('Digite um Email Válido!!'); form.email.focus(); return false;
+	}else if(!maxLen(form.txtLogin, 20)){
+		alert('Máximo de 20 caractéres no login!!'); form.txtLogin.focus(); return false;
+	}else if(!minLen(form.txtLogin, 6)){
+		alert('Mínimo de 6 caractéres no login!!'); form.txtLogin.focus(); return false;	
+	}else if(!maxLen(form.txtSenha, 12)){
+		alert('Máximo de 12 caractéres na senha!!'); form.txtSenha.focus(); return false;	
+	}else if(!minLen(form.txtSenha, 6)){
+		alert('Mínimo de 6 caractéres na senha!!'); form.txtSenha.focus(); return false;	
+	}else{
+		
+		nome   = form.nome.value;
+		uf     = form.uf.value;
+		cidade = form.cidade.value;
+		email  = form.email.value;
+		login  = form.txtLogin.value;
+		senha  = form.txtSenha.value;
+		
+		form.nome.value = null;
+		form.uf.value = null;
+		form.cidade.value = null;
+		form.email.value = null;
+		form.txtLogin.value = null;
+		form.txtSenha.value = null;
+		
+			$.ajax({
+					method: "get",
+					url: "db/cadastro.php",
+					data: "nome="+nome+"&uf="+uf+"&cidade="+cidade+"&email="+email+"&login="+login+"&senha="+senha,
+					beforeSend: EsconderDiv,
+					complete: MostrarDiv,
+					success: function (html){
+								$("#mensagem").html(html).toggle("slow");
+							}
+					});
+					
+		return false;
+	}
+}
+
+function ValidaFormDoacao(form){
+
+	if(form.dia.value == ''){
+		alert('Digite a data do comprovante!!'); form.dia.focus(); return false;
+	}else if(form.hora.value == ''){
+		alert('Digite a hora do comprovante!!'); form.hora.focus(); return false;
+	}else if(form.tipo.value == ''){
+		alert('Selecione o tipo da doação!!'); form.tipo.focus(); return false;
+	}else if(!isNumber(form.valor)){
+		alert('Digite os valor da contribuição em numeros apenas!!'); form.valor.focus(); return false;
+	}else if(form.nick.value == ''){
+		alert('Digite o seu nick name no jogo'); form.nick.focus(); return false;
+	}else if(form.conta.value == ''){
+		alert('Obs.: Digite com atenção pois não nos responsabilizamos por digitar login incorreto!! Digite o login da conta que vai receber a bonificação!!'); form.conta.focus(); return false;
+	}else if(form.nick01.value == ''){
+		alert('OBS.: Digite corretamente pois qualquer erro ortográfico não nos responsabilizamos!! Digite o nickname do player que vai receber o donante/vip no jogo!!'); form.nick01.focus(); return false;
+	}else{
+	
+	dia    = form.dia.value;
+	hora   = form.hora.value;
+	tipo   = form.tipo.value;
+	valor  = form.valor.value;
+	nick   = form.nick.value;
+	conta  = form.conta.value;
+	nick01 = form.nick01.value;
+	msg    = form.txtMensagem.value;
+	
+	$("#dia").val(null);
+	$("#hora").val(null);
+	$("#tipo").val(null);
+	$("#valor").val(null);
+	$("#nick").val(null);
+	$("#conta").val(null);
+	$("#nick01").val(null);
+	$("#txtMensagem").val(null);
+	
+		$.ajax({
+					method: "get",
+					url: "db/doar.php",
+					data: "dia="+dia+"&hora="+hora+"&tipo="+tipo+"&valor="+valor+"&nick="+nick+"&conta="+conta+"&nick01="+nick01+"&msg="+msg,
+					beforeSend: EsconderDiv,
+					complete: MostrarDiv,
+					success: function (html){
+								$("#mensagem").html(html).toggle("slow");
+							}
+					});
+					
+	return false;
+	}
+
+}
+
+function ValidaAlteraLogin(form){
+
+	if(form.txtLogin.value == ''){
+		alert('Digite o login do usuário a ser alterado!!'); form.txtLogin.focus(); return false;
+	}else if(form.tipo.value == ''){
+		alert('Selecione o tipo de alteração a ser feita!!'); form.tipo.focus(); return false;
+	}else{
+			
+	login = form.txtLogin.value;
+	tipo  = form.tipo.value;
+	
+			$.ajax({
+					method: "get",
+					url: "db/alteraruser.php",
+					data: "login="+login+"&tipo="+tipo,
+					beforeSend: EsconderDiv,
+					complete: MostrarDiv,
+					success: function (html){
+									$("#mensagem").html(html).toggle("slow");
+							   }
+					});
+					
+	return false;
+	}
+
+}
+
+function ValidaLogin(form){
+
+	if(form.login.value == ''){
+		alert('Digite o login de Acesso!!'); form.login.focus(); return false;
+	}else if(form.senha.value == ''){
+		alert('Digite a senha de Acesso!!'); form.senha.focus(); return false;
+	}else{
+		return true;	
+	}
+	
+}
+
+function ColocarMascara(campo){
+	switch(campo){
+		case "dia":
+			$("#"+campo+"").mask("99/99/9999");
+			break;
+		case "hora":
+			$("#"+campo+"").mask("99:99:99");
+			break;
+		default:
+			alert('Campo nao encontrado!!');
+			break;
+	}
+	
+	return false;
+}
+
+function EsconderDiv(){
+	$("#mensagem").hide("slow");
+}
+function MostrarDiv(){
+	$("#mensagem").show("slow");
+}
+
+function isMail(mailField){
+  strMail = mailField.value;
+  var re = new RegExp;
+  re = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  var arr = re.exec(strMail);
+  if (arr == null)
+    return(false);
+  else
+    return(true);
+}
+
+function minLen(txtField, minVal){
+  strExp = txtField.value;
+  l = strExp.length;
+  if (l < minVal)
+    return(false);
+  else
+    return(true);
+}
+
+function maxLen(txtField, maxVal){
+  strExp = txtField.value;
+  l = strExp.length;
+  if (l > maxVal)
+    return(false);
+  else
+    return(true);
+}
+
+function isNumber(txtField){
+  numExp = txtField.value;
+  if (isNaN(numExp) || (numExp.length == 0))
+    return (false);
+  else
+    return(true);
+}

@@ -1,0 +1,2 @@
+ALTER TABLE ragdon ADD CONSTRAINT fk_account_id FOREIGN KEY (account_id) REFERENCES login(account_id);
+ALTER TABLE ragdon_vip ADD CONSTRAINT fk_account_id FOREIGN KEY (account_id) REFERENCES login(account_id);

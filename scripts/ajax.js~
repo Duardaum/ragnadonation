@@ -1,0 +1,57 @@
+$(document).ready(CarregaMenu);
+$(document).ready(CarregarInicial);
+$(document).ready(ArredondaCantos);
+
+function CarregaCidade(uf){
+	$.get("pages/indexpages.php",{pg:"cidades", uf:""+uf+""},
+			function (conteudo){
+				$("#cidade").html("Carregando..");
+				$("#cidade").html(conteudo);
+			}	  
+	);
+}
+
+function ArredondaCantos(){
+	$("#corpo #direitos").corner("10px");
+}
+
+function CarregarInicial(){
+	
+	$.get("pages/indexpages.php",{pg:"home"},
+			function (conteudo){
+				$("#corpo #centro").slideUp("slow");
+				$("#corpo #centro").html(conteudo);
+				$("#corpo #centro").slideDown("slow");
+			}	  
+	);
+}
+
+function CarregaMenu(){
+	$("#menu ul li a").click(CarregaPagina);
+	
+	function CarregaPagina(){
+		$("#mensagem").hide("slow");
+		link = $(this).attr("href");
+		
+		$.ajax({
+							method: "get",
+							url: "pages/indexpages.php",
+							data: "pg="+link,
+							beforeSend: MostrarDiv,
+							complete: EsconderDiv,
+							success: function (html){
+											$("#corpo #centro").html(html).show("slow");
+										}
+						});
+					
+							function MostrarDiv(){
+								$("#corpo #centro").slideUp("slow");
+								$("#loading").slideDown("slow");
+							}
+							function EsconderDiv(){
+								$("#loading").slideUp("slow");
+							}
+	
+	return false;		
+	}
+}
